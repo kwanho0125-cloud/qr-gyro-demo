@@ -4,9 +4,11 @@ Tech demo: scan a QR code, open an HTTPS page in iPhone Safari (no app), and use
 
 ## Live URL
 
-https://kwanho0125-cloud.github.io/qr-gyro-demo/
+https://raw.githack.com/kwanho0125-cloud/qr-gyro-demo/main/site/index.html
 
 QR image (encodes that exact URL): `qr.png` in this folder.
+
+This URL serves the `site/` folder from the public GitHub repo with the correct HTML/JS/CSS types. GitHub Pages could not be auto-enabled from Actions (`GITHUB_TOKEN` cannot create a Pages site). To switch to official Pages later: in the repo, Settings → Pages → Source: GitHub Actions, then re-run the workflow. The Pages URL would be https://kwanho0125-cloud.github.io/qr-gyro-demo/ — regenerate the QR if you switch.
 
 ## How to play
 
