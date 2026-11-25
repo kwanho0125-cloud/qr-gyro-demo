@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#080c16">
+  <meta name="description" content="用 iPhone 陀螺儀喺 3D 場景裏面當虛擬鏡頭。請用 Safari 開啟。">
+  <title>用手機當鏡頭 · 陀螺儀示範</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <section id="landing" class="overlay" aria-label="開始畫面">
+    <div class="card">
+      <p class="kicker">幾何場景 · 技術示範</p>
+      <h1>用手機當鏡頭</h1>
+      <p class="lead">轉吓、望吓，手機就係場裏面嘅虛擬鏡頭。搵齊 5 個標記就完成。</p>
+      <ul class="steps">
+        <li>必須用 <strong>Safari</strong> 開啟（唔好用 Instagram、微信等內置瀏覽器）</li>
+        <li>撳「開始」之後，允許「動作與方向／動態感應器」</li>
+        <li>轉動手機四面望；按住下方「前進」就可以向前行</li>
+      </ul>
+      <button type="button" id="start-btn" class="btn primary">開始</button>
+      <p class="en">Tilt the iPhone to look around. Hold Advance to walk. Safari only.</p>
+    </div>
+  </section>
+
+  <section id="inapp" class="overlay hidden" aria-label="請改用 Safari">
+    <div class="card">
+      <p class="kicker">請改用 Safari</p>
+      <h1>唔好喺呢個瀏覽器開</h1>
+      <p class="lead" id="inapp-msg">陀螺儀喺 Instagram、微信等內置瀏覽器通常唔會正常運作。請改用 Safari 開啟呢個網頁。</p>
+      <p class="howto" id="inapp-howto"></p>
+      <button type="button" id="copy-link-btn" class="btn primary">複製連結</button>
+      <p class="hint" id="copy-status" hidden>已複製，請貼到 Safari 網址列。</p>
+      <p class="en">Please open this page in Safari, then tap Start.</p>
+    </div>
+  </section>
+
+  <section id="denied" class="overlay hidden" aria-label="未獲授權">
+    <div class="card">
+      <p class="kicker">未能開啟感應器</p>
+      <h1>需要動態感應器權限</h1>
+      <p class="lead">剛才未能取得「動作與方向」權限。可以重新整理頁面再試，或者到「設定 → Safari → 動態感應器／Motion &amp; Orientation Access」開啟。</p>
+      <button type="button" id="retry-btn" class="btn primary">再試一次</button>
+      <button type="button" id="desktop-fallback-btn" class="btn ghost">改用拖動畫面（預覽）</button>
+    </div>
+  </section>
+
+  <div id="hud" class="hidden">
+    <div id="top-bar">
+      <div id="found-pill">已找到 <span id="found-count">0</span>／5</div>
+      <button type="button" id="recalibrate-btn" class="btn compact">校正方向</button>
+    </div>
+    <div id="crosshair" aria-hidden="true"></div>
+    <p id="look-hint" hidden>對準標記，望定一陣就會收錄</p>
+    <p id="sensor-warn" hidden>未收到陀螺儀數據。請確認已允許感應器，或改用拖動畫面。</p>
+    <p id="done-msg" hidden>全部找到！可以繼續四面望，或者按住「前進」行多兩步。</p>
+    <p id="desktop-banner" hidden>電腦預覽：拖動畫面轉動視角，按住「前進」或撳 W 鍵行路。真正體驗請用 iPhone Safari。</p>
+    <button type="button" id="move-btn" class="btn hold">按住前進</button>
+  </div>
+
+  <p id="load-error" class="overlay hidden" role="alert"></p>
+
+  <script type="module">
+    import('./app.js').catch(() => {
+      const box = document.getElementById('load-error');
+      box.textContent = '未能載入 3D 引擎，請檢查網絡後重新整理。Failed to load the 3D engine.';
+      box.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
